@@ -10,8 +10,8 @@
 </head>
 <body>
     <div class="frame">
-        <div class="navbar">
-            {% if user.is_authenticated %}
+        {% if user.is_authenticated %}
+            <div class="navbar">
                 <form method="POST" action="{% url 'logout' %}" style="display: inline;">
                     {% csrf_token %}
                     <button type="submit">
@@ -21,9 +21,8 @@
                         </svg>
                     </button>
                 </form>
-            {% else %}
-            {% endif %}
-        </div>
+            </div>
+        {% endif %}
         <div class="page">
             {% block content %}
             {% endblock %}
