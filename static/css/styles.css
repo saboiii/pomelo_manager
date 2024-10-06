@@ -17,11 +17,11 @@
 }
 
 .page {
-    @apply flex w-full bg-slate-50 text-[#111111] flex-col font-outfit font-light px-16 py-10
+    @apply flex w-screen md:w-[95%] bg-slate-50 text-[#111111] flex-col font-outfit font-light px-16 py-10
 }
 
 .navbar {
-    @apply w-[5%] bg-[#f3f3f3] md:flex hidden outline-1 outline outline-[#ede8e8] z-10
+    @apply flex-col py-4 items-center justify-end w-[5%] bg-[#f3f3f3] md:flex hidden outline-1 outline outline-[#ede8e8] z-10
 }
 
 .highpriority {
@@ -73,7 +73,11 @@
 }
 
 .formfield {
-    @apply w-1/2 rounded-xl bg-slate-50 outline-[#d9cfcf] text-xs outline outline-1 mb-4 mt-2 placeholder:text-[#d9cfcf] text-[#111111] justify-between font-normal py-2 px-4 hover:bg-[#f3f1f1] transition ease-in-out duration-200
+    @apply rounded-xl bg-slate-50 outline-[#d9cfcf] text-xs outline outline-1 mb-4 mt-2 placeholder:text-[#d9cfcf] text-[#111111] justify-between font-normal py-2 px-4 hover:bg-[#f3f1f1] transition ease-in-out duration-200
+}
+
+.formfield2 {
+    @apply flex w-[42vw] rounded-xl bg-slate-50 outline-[#d9cfcf] text-xs outline outline-1 mb-4 mt-2 placeholder:text-[#d9cfcf] text-[#111111] justify-between font-normal py-2 px-4 hover:bg-[#f3f1f1] transition ease-in-out duration-200
 }
 
 .button1 {
@@ -82,4 +86,12 @@
 
 .button2 {
     @apply flex uppercase text-[#111111] font-light text-xs px-3 w-1/2 tracking-widest justify-center items-center rounded-lg
+}
+
+.helpclass {
+    @apply text-[10px] normal-case font-light flex
+}
+
+.errorclass {
+    @apply text-[10px] normal-case font-light flex
 }

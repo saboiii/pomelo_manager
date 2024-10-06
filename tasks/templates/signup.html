@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+  <div class="flex flex-col w-full justify-center items-center">
+    <h2 class="flex mb-4">Register</h2>
+    <form method="POST" action="" class="flex flex-col w-full justify-center items-center font-bold tracking-widest text-xs uppercase">
+        {% csrf_token %}
+        <div>
+          {{ form.first_name.label_tag }}
+          {{ form.first_name }}
+          {% if form.first_name.help_text %}
+              <small class="helpclass">{{ form.first_name.help_text }}</small>
+          {% endif %}
+          {% for error in form.first_name.errors %}
+              <span class="errorclass">{{ error }}</span>
+          {% endfor %}
+        </div>
+  
+        <div>
+          {{ form.last_name.label_tag }}
+          {{ form.last_name }}
+          {% if form.last_name.help_text %}
+              <small class="helpclass">{{ form.last_name.help_text }}</small>
+          {% endif %}
+          {% for error in form.last_name.errors %}
+              <span class="errorclass">{{ error }}</span>
+          {% endfor %}
+        </div>
+  
+        <div class="my-2">
+          {{ form.username.label_tag }}
+          {{ form.username }}
+          {% if form.username.help_text %}
+              <small class="helpclass">{{ form.username.help_text }}</small>
+          {% endif %}
+          {% for error in form.username.errors %}
+              <span class="errorclass">{{ error }}</span>
+          {% endfor %}
+        </div>
+  
+        <div class="my-2">
+          {{ form.password1.label_tag }}
+          {{ form.password1 }}
+          {% if form.password1.help_text %}
+              <small class="helpclass">{{ form.password1.help_text }}</small>
+          {% endif %}
+          {% for error in form.password1.errors %}
+              <span class="errorclass">{{ error }}</span>
+          {% endfor %}
+        </div>
+  
+        <div class="my-2">
+          {{ form.password2.label_tag }}
+          {{ form.password2 }}
+          {% if form.password2.help_text %}
+              <small class="helpclass">{{ form.password2.help_text }}</small>
+          {% endif %}
+          {% for error in form.password2.errors %}
+              <span class="errorclass">{{ error }}</span>
+          {% endfor %}
+        </div>
+        <button type="submit" class="button1 mb-1">Sign up</button>
+    </form>
+    <div class="flex flex-row items-center justify-center w-1/2 mt-4">
+        <div class="flex h-0 w-full outline-[0.5px] outline outline-[#111111]"></div>
+        <a href="/" class="flex button2 min-w-max">Return to login</a>
+        <div class="flex h-0 w-full outline-[0.5px] outline outline-[#111111]"></div>
+    </div>
+  </div>
+{% endblock %}

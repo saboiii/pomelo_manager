@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from tasks import views
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('tasks/', include('tasks.urls')),
@@ -24,5 +25,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('delete-task/<int:task_id>/', views.delete_task, name='delete_task'),
     path('edit-task/<int:task_id>/', views.edit_task, name='edit_task'),
-     path('export/', views.export_tasks_to_excel, name='export_tasks_to_excel'),
+    path('export/', views.export_tasks_to_excel, name='export_tasks_to_excel'),
+    path('logout/', LogoutView.as_view(next_page='home'), name='logout'),
+    path('signup/', views.signup, name='signup'),
 ]

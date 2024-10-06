@@ -9,10 +9,13 @@ from openpyxl.utils import get_column_letter
 from openpyxl.styles import Font
 from openpyxl.styles import PatternFill
 from openpyxl.formatting.rule import CellIsRule
+from django.contrib.auth import login
+from .forms import CustomAuthenticationForm
+from .forms import CustomSignUpForm
 from django.http import HttpResponse
 
 def export_tasks_to_excel(request):
-    tasks = Task.objects.all()
+    tasks = Task.objects.filter(user=request.user)
     wb = openpyxl.Workbook()
     ws = wb.active
     ws.title = "Tasks"
@@ -44,9 +47,8 @@ def export_tasks_to_excel(request):
 
 @csrf_exempt
 def delete_task(request, task_id):
-    print(f"Delete task called with ID: {task_id}")
     try:
-        task = Task.objects.get(id=task_id)
+        task = Task.objects.get(id=task_id, user=request.user)
         task.delete()
         return JsonResponse({'success': True})
     except Task.DoesNotExist:
@@ -54,7 +56,7 @@ def delete_task(request, task_id):
         return JsonResponse({'success': False, 'error': 'Task not found'}, status=404)
 
 def edit_task(request, task_id):
-    task = get_object_or_404(Task, id=task_id)
+    task = get_object_or_404(Task, id=task_id, user=request.user)
 
     if request.method == 'POST':
         form = TaskForm(request.POST, instance=task)
@@ -68,27 +70,56 @@ def edit_task(request, task_id):
 
 def home(request):
     search_query = request.GET.get('search', '')
-    if search_query:
-        tasks = Task.objects.filter(
-            Q(title__icontains=search_query) |
-            Q(priority__icontains=search_query) |
-            Q(description__icontains=search_query)
-        )
+
+    if request.user.is_authenticated:
+        if search_query:
+            tasks = Task.objects.filter(
+                Q(title__icontains=search_query) |
+                Q(priority__icontains=search_query) |
+                Q(description__icontains=search_query),
+                user=request.user 
+            )
+        else:
+            tasks = Task.objects.filter(user=request.user)
+
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            return render(request, 'partials/tasks_list.html', {'tasks': tasks})
+
+        return render(request, 'home.html', {'tasks': tasks})
+
     else:
-        tasks = Task.objects.all()
+        if request.method == 'POST':
+            form = CustomAuthenticationForm(request, data=request.POST)
+            if form.is_valid():
+                user = form.get_user()
+                login(request, user)
+                return redirect('home')
+        else:
+            form = CustomAuthenticationForm(request)
 
-    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-        return render(request, 'partials/tasks_list.html', {'tasks': tasks})
+        return render(request, 'home.html', {'form': form, 'tasks': []})
 
-    return render(request, 'home.html', {'tasks': tasks})
+def signup(request):
+    if request.method == 'POST':
+        form = CustomSignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('home')
+    else:
+        form = CustomSignUpForm()
+    
+    return render(request, 'signup.html', {'form': form})
 
 def add_task(request):
     if request.method == 'POST':
         form = TaskForm(request.POST)
         if form.is_valid():
-            form.save()
+            task = form.save(commit=False)
+            task.user = request.user
+            task.save()
             return redirect('home')
     else:
         form = TaskForm()
-    tasks = Task.objects.all()
+    tasks = Task.objects.filter(user=request.user)
     return render(request, 'add_task.html', {'tasks': tasks, 'form': form})
