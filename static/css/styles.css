@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: "Outfit";
+    src: url("/static/fonts/Outfit.ttf");
+}
+
+@layer base {
+    h2 {
+        @apply text-black font-outfit font-bold text-[54px] tracking-[-4px]
+    }
+}
+.frame{
+    @apply flex w-screen min-h-screen bg-[#f3f3f3]
+}
+
+.page {
+    @apply flex w-full bg-slate-50 text-[#111111] flex-col font-outfit font-light px-16 py-10
+}
+
+.navbar {
+    @apply w-[5%] bg-[#f3f3f3] md:flex hidden outline-1 outline outline-[#ede8e8] z-10
+}
+
+.highpriority {
+    @apply flex items-center px-[8px] text-[14px] rounded-full bg-[#d47272] text-[#ebebeb] font-bold
+}
+
+.mediumpriority {
+    @apply flex items-center px-[8px] text-[14px] rounded-full bg-[#efa25f] text-[#ebebeb] font-bold
+}
+
+.lowpriority {
+    @apply flex items-center px-[8px] text-[14px] rounded-full bg-[#a4a4a4] text-[#ebebeb] font-bold
+}
+
+.container {
+    @apply bg-[#efefef] outline-1 outline outline-[#ede8e8] rounded-lg hover:bg-[#edebeb] transition duration-300 ease-in-out cursor-pointer
+}
+
+.downloadcontainer {
+    @apply bg-[#111111] rounded-lg hover:bg-[#272727] transition duration-300 ease-in-out cursor-pointer
+}
+
+.searchcontainer {
+    @apply bg-[#efefef] outline-1 outline outline-[#ede8e8] rounded-lg hover:bg-[#edebeb] transition duration-300 ease-in-out
+}
+
+.searchinput {
+    @apply flex h-10 px-4 items-center bg-transparent placeholder:bg-transparent hover:bg-transparent focus:bg-transparent outline-none placeholder:text-[#cfc4c4] text-[#111111]
+}
+
+.containermedium {
+    @apply bg-[#efefef] outline-1 outline outline-[#ede8e8] rounded-md
+}
+
+.verticaldivider {
+    @apply flex w-0 h-full outline-[0.5px] outline outline-[#ede8e8]
+}
+
+.horizontaldivider {
+    @apply flex h-0 w-full outline-[0.5px] outline outline-[#ede8e8] rounded-full mb-4
+}
+
+.dropdownitem {
+    @apply flex text-sm w-full font-normal h-1/2 bg-slate-50 outline-[#d9cfcf] outline outline-1 items-center justify-center text-[#b9abab] hover:bg-[#f3f1f1] transition ease-in-out duration-200 cursor-pointer
+}
+
+.dropdownmenu {
+    @apply w-28 h-16 bg-slate-50 outline-[#d9cfcf] outline outline-1 rounded-lg overflow-hidden z-50
+}
+
+.formfield {
+    @apply w-1/2 rounded-xl bg-slate-50 outline-[#d9cfcf] text-xs outline outline-1 mb-4 mt-2 placeholder:text-[#d9cfcf] text-[#111111] justify-between font-normal py-2 px-4 hover:bg-[#f3f1f1] transition ease-in-out duration-200
+}
+
+.button1 {
+    @apply flex uppercase text-slate-50 font-light text-sm py-3 px-4 w-1/2 tracking-widest justify-center items-center bg-[#111111] mt-4 rounded-lg hover:text-[#d4cdcd] transition ease-in-out duration-200
+}
+
+.button2 {
+    @apply flex uppercase text-[#111111] font-light text-xs px-3 w-1/2 tracking-widest justify-center items-center rounded-lg
+}

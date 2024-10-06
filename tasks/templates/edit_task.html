@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Add Task
+{% endblock %}
+
+{% block content %}
+  <div class="flex flex-col w-full">
+    <h2 class="flex">Edit task &#34;{{ task.title }}&#34;</h2>
+    <form method="POST" class="flex flex-col w-full font-bold tracking-widest text-xs uppercase">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit" class="button1">Edit Task</button>
+      <div class="flex flex-row items-center justify-center w-1/2 mt-4">
+        <div class="flex h-0 w-full outline-[0.5px] outline outline-[#111111]"></div>
+        <a href="/" class="flex button2 min-w-max">Return to Home</a>
+        <div class="flex h-0 w-full outline-[0.5px] outline outline-[#111111]"></div>
+      </div>
+    </form>
+  </div>
+{% endblock %}
