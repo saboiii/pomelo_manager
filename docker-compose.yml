@@ -1,4 +1,3 @@
-version: '3'
 services:
   db:
     image: postgres
@@ -13,7 +12,26 @@ services:
       - ./postgres_data:/var/lib/postgresql/data
     networks:
       - backend-network
+  
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"                       
+    depends_on:
+      - db                                 
+    volumes:
+      - .:/app                            
+    environment:
+      - DB_USER=${DB_USER}                 
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+    networks:
+      - backend-network
 
 networks:
   backend-network:
     driver: bridge
+
+volumes:
+  postgres_data:
